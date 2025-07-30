@@ -1,0 +1,32 @@
+# Build e caches do Gradle
+.gradle/
+build/
+out/
+
+# Classes compiladas
+*.class
+
+# Logs e relatórios
+*.log
+hs_err_pid*
+reports/
+coverage/
+
+# IDEs e configs de editor
+.idea/
+.vscode/
+*.iml
+
+# Arquivos do sistema
+.DS_Store
+
+# Git
+.git
+.gitignore
+
+# Docker configs
+Dockerfile
+docker-compose*.yml
+
+# Ambientes e secrets
+.env
