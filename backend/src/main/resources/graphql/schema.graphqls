@@ -1,0 +1,37 @@
+#######################
+# Tipos de domínio
+#######################
+
+type Quiz {
+    id: ID!
+    title: String!
+    questions: [Question!]!
+}
+
+type Question {
+    id: ID!
+    text: String!
+    options: [String!]!
+}
+
+type VoteResult {
+    questionId: ID!
+    counts: [Int!]!    # contagem por opção
+}
+
+#######################
+# Operações
+#######################
+
+type Query {
+    quizzes: [Quiz!]!
+    quiz(id: ID!): Quiz
+}
+
+type Mutation {
+    vote(questionId: ID!, optionIndex: Int!): Boolean!
+}
+
+type Subscription {
+    voteResults(questionId: ID!): VoteResult!
+}
