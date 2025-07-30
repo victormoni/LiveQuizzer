@@ -1,0 +1,17 @@
+<h2>Available Quizzes</h2>
+
+<ng-container *ngIf="quizzes$ | async as quizzes; else loadingOrError">
+  <ul *ngIf="quizzes.length; else noQuizzes">
+    <li *ngFor="let q of quizzes">
+      <a [routerLink]="['/quiz', q.id]">{{ q.title }}</a>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #loadingOrError>
+  <p>Carregando quizzes…</p>
+</ng-template>
+
+<ng-template #noQuizzes>
+  <p>Não foi encontrado nenhum quiz.</p>
+</ng-template>
