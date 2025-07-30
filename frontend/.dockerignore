@@ -1,0 +1,23 @@
+# Dependências e builds
+node_modules
+dist
+coverage
+npm-debug.log
+yarn-error.log
+
+# Configurações locais e IDEs
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+# Git
+.git
+.gitignore
+
+# Arquivos de configuração de Docker Compose ou Dockerfile
+Dockerfile
+docker-compose*.yml
+
+# Ambientes e secrets
+.env
