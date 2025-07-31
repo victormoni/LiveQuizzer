@@ -48,6 +48,7 @@ backend/nbdist/
 backend/.nb-gradle/
 backend/.vscode/
 backend/HELP.md
+backend/.env
 
 # GLOBAL
 *.log
@@ -63,3 +64,4 @@ Thumbs.db
 # DOCKER (se quiser ignorar arquivos de env/local)
 **/.env
 docker-compose.override.yml
+node_modules
