@@ -1,5 +1,5 @@
 # === STAGE 1: Build Angular Universal (prerender) ===
-FROM node:18-alpine AS build
+FROM node:20-alpine AS build
 WORKDIR /app
 
 # 1) Instala dependências

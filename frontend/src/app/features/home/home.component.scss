@@ -1,0 +1,29 @@
+.home-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #181824 70%, #23233b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-card {
+  min-width: 350px;
+  box-shadow: 0 8px 32px #18a0fb44;
+  border-radius: 24px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  background: #23233b;
+}
+
+.home-title {
+  font-size: 2.3rem;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: #18a0fb;
+}
+
+.home-desc {
+  color: #bfc9d1;
+  margin-bottom: 1.8rem;
+  font-size: 1.12rem;
+}
