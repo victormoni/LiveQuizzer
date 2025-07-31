@@ -1,17 +1,24 @@
-<ng-container *ngIf="quiz">
+@if (quiz) {
   <h2>{{ quiz.title }}</h2>
-  <div *ngFor="let q of quiz.questions">
-    <p>{{ q.text }}</p>
-    <button
-      *ngFor="let opt of q.options; let i = index"
-      (click)="vote(q.id, i)"
-    >
-      {{ opt }}
-    </button>
-    <ul *ngIf="voteResults[q.id]">
-      <li *ngFor="let c of voteResults[q.id]; let idx = index">
-        {{ q.options[idx] }}: {{ c }}
-      </li>
-    </ul>
-  </div>
-</ng-container>
+  @for (q of quiz.questions; track q) {
+    <div>
+      <p>{{ q.text }}</p>
+      @for (opt of q.options; track opt; let i = $index) {
+        <button
+          (click)="vote(q.id, i)"
+          >
+          {{ opt }}
+        </button>
+      }
+      @if (voteResults[q.id]) {
+        <ul>
+          @for (c of voteResults[q.id]; track c; let idx = $index) {
+            <li>
+              {{ q.options[idx] }}: {{ c }}
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+}

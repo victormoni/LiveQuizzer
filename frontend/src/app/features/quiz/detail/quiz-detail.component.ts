@@ -1,6 +1,6 @@
 // src/app/features/quiz/detail/quiz-detail.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute } from '@angular/router';
 import {
   QuizService,
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-quiz-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './quiz-detail.component.html',
 })
 export class QuizDetailComponent implements OnInit, OnDestroy {
