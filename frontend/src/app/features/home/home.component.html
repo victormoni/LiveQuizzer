@@ -1,0 +1,28 @@
+<div class="home-bg">
+  <mat-card class="home-card">
+    <mat-card-header>
+      <mat-card-title>
+        <span class="home-title">LiveQuizzer</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="home-desc">
+        Desafie seus amigos em quizzes ao vivo!<br />
+        Faça login para começar.
+      </p>
+      <ng-container *ngIf="!user">
+        <button mat-raised-button color="primary" (click)="loginWithGoogle()">
+          <mat-icon>login</mat-icon>
+          Entrar com Google
+        </button>
+      </ng-container>
+      <ng-container *ngIf="user">
+        <p>Bem-vindo, {{ user.displayName }}</p>
+        <button mat-raised-button color="warn" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Sair
+        </button>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>
