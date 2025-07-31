@@ -24,6 +24,7 @@ frontend/testem.log
 frontend/typings
 frontend/.DS_Store
 frontend/Thumbs.db
+frontend/src/environments/*.ts
 
 # BACKEND (Java/Spring/Gradle)
 backend/.gradle

@@ -5,8 +5,9 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpLink } from 'apollo-angular/http';
 import { provideApollo } from 'apollo-angular';
 import { InMemoryCache, split } from '@apollo/client/core';
-
-// importa o novo link:
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { environment } from './environments/environment';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 
@@ -17,7 +18,8 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideHttpClient(),
     provideRouter(routes, withComponentInputBinding()),
-
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
     provideApollo(() => {
       const httpLink = inject(HttpLink);
 

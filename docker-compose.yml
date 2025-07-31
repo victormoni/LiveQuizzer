@@ -55,6 +55,8 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SPRING_DATA_REDIS_HOST: redis
       SPRING_DATA_REDIS_PORT: 6379
+    env_file:
+      - ./backend/.env
     ports:
       - "8080:8080"
 
