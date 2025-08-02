@@ -17,4 +17,8 @@ export class QuizListComponent implements OnInit {
     this.quizzes$ = this.quizService.getQuizzes();
   }
   ngOnInit(): void {}
+
+  trackByQuizId(_idx: number, quiz: Quiz) {
+    return quiz.id;
+  }
 }

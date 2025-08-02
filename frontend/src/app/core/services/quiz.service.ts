@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { map, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 export interface Quiz {
   id: string;
@@ -11,15 +12,24 @@ export interface Question {
   id: string;
   text: string;
   options: string[];
+  correctAnswer: number; // índice da opção correta
 }
 export interface VoteResult {
   questionId: string;
   counts: number[];
 }
 
+export interface ScoreEntry {
+  userId: string;
+  name: string;
+  score: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class QuizService {
-  constructor(private apollo: Apollo) {}
+  private readonly scoresUrl = 'http://localhost:8080/api/scores';
+
+  constructor(private apollo: Apollo, private http: HttpClient) {}
 
   getQuizzes(): Observable<Quiz[]> {
     return this.apollo
@@ -89,5 +99,13 @@ export class QuizService {
         variables: { questionId },
       })
       .pipe(map((res) => res.data!.voteResults));
+  }
+
+  submitScore(entry: ScoreEntry) {
+    return this.http.post<void>(this.scoresUrl, entry);
+  }
+
+  getTopScores() {
+    return this.http.get<ScoreEntry[]>(this.scoresUrl);
   }
 }

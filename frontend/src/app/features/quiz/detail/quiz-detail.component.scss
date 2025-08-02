@@ -1,0 +1,26 @@
+.question-block {
+  margin-bottom: 2.5rem;
+}
+
+.question-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: #1976d2;
+}
+
+.vote-results {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+  color: #222;
+  font-size: 1rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+mat-progress-bar {
+  margin-bottom: 6px;
+  border-radius: 8px;
+}
+
