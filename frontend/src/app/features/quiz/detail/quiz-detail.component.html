@@ -1,24 +1,26 @@
-@if (quiz) {
-  <h2>{{ quiz.title }}</h2>
-  @for (q of quiz.questions; track q) {
-    <div>
-      <p>{{ q.text }}</p>
-      @for (opt of q.options; track opt; let i = $index) {
-        <button
-          (click)="vote(q.id, i)"
-          >
-          {{ opt }}
-        </button>
-      }
-      @if (voteResults[q.id]) {
-        <ul>
-          @for (c of voteResults[q.id]; track c; let idx = $index) {
-            <li>
-              {{ q.options[idx] }}: {{ c }}
-            </li>
-          }
-        </ul>
-      }
-    </div>
-  }
-}
+<mat-card class="quiz-card">
+  <mat-card-header>
+    <mat-card-title>{{ quiz?.title }}</mat-card-title>
+  </mat-card-header>
+
+  <ng-container *ngIf="quiz">
+    <!-- Pergunta atual -->
+    <app-question-card
+      [question]="currentQuestion"
+      [timer]="timers[currentQuestion.id]"
+      [voteResult]="voteResults[currentQuestion.id]"
+      [userVote]="userVotes[currentQuestion.id]"
+      [correctAnswer]="correctAnswers[currentQuestion.id]"
+      [currentIndex]="currentIndex"
+      [quizFinished]="quizFinished()"
+      [score]="getScore()"
+      [bestScore]="getBestScore()"
+      [topScores]="topScores"
+      [totalQuestions]="quiz.questions.length"
+      (vote)="vote(currentQuestion.id, $event)"
+      (prev)="goToPrev()"
+      (next)="goToNext()"
+      (restart)="restartQuiz()"
+    ></app-question-card>
+  </ng-container>
+</mat-card>

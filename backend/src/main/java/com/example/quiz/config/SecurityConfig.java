@@ -2,35 +2,30 @@ package com.example.quiz.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-
-
-import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
+@EnableWebFluxSecurity
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/graphql").permitAll()
-                        .anyRequest().authenticated()
+                // habilita CORS (sua WebConfig de WebFlux já registrou os mappings)
+                .cors(Customizer.withDefaults())
+                // desativa CSRF (sem cookies de sessão/stateful)
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                // quem pode acessar o quê
+                .authorizeExchange(exchanges -> exchanges
+                        .pathMatchers("/graphql", "/graphql/**", "/api/**").permitAll()
+                        .anyExchange().authenticated()
                 )
-                .oauth2Login(oauth2 -> oauth2
-                        .successHandler(successHandler()) // handler customizado
-                );
-        return http.build();
-    }
+                // habilita OAuth2 Login (Google)
+                .oauth2Login(Customizer.withDefaults());
 
-    // Handler para redirecionar para o frontend após login
-    @Bean
-    public AuthenticationSuccessHandler successHandler() {
-        return new SimpleUrlAuthenticationSuccessHandler("http://localhost:4200");
+        return http.build();
     }
 }

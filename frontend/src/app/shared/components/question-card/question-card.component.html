@@ -1,0 +1,86 @@
+<mat-card class="quiz-card">
+  <mat-card-header>
+    <mat-card-title>
+      {{ question.text }}
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div *ngIf="!quizFinished">
+      <div class="timer" *ngIf="timer > 0 && userVote == null">
+        Tempo restante: {{ timer }}s
+      </div>
+      <div class="options-row">
+        <button
+          mat-raised-button
+          *ngFor="let opt of question.options; index as i"
+          [color]="userVote === i ? 'accent' : 'primary'"
+          [disabled]="userVote != null || timer <= 0"
+          (click)="onSelect(i)"
+        >
+          {{ opt }}
+          <mat-icon *ngIf="userVote === i">check</mat-icon>
+        </button>
+      </div>
+      <span *ngIf="userVote != null" class="voted-feedback">
+        Você votou em: <b>{{ question.options[userVote] }}</b>
+        <mat-icon
+          [ngClass]="{
+            correct: userVote === correctAnswer,
+            incorrect: userVote !== correctAnswer
+          }"
+        >
+          {{ userVote === correctAnswer ? "check_circle" : "cancel" }}
+        </mat-icon>
+        <span
+          [ngClass]="{
+            correct: userVote === correctAnswer,
+            incorrect: userVote !== correctAnswer
+          }"
+        >
+          {{ userVote === correctAnswer ? "Correto!" : "Errado!" }}
+        </span>
+      </span>
+      <ng-container *ngIf="voteResult">
+        <mat-progress-bar
+          *ngFor="let _count of voteResult; index as idx"
+          mode="determinate"
+          [value]="percent(idx)"
+          class="mt-2"
+        ></mat-progress-bar>
+      </ng-container>
+    </div>
+
+    <div class="navigation-buttons">
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="prev.emit()"
+        [disabled]="isFirstQuestion()"
+      >
+        Anterior
+      </button>
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="next.emit()"
+        [disabled]="!quizFinished && userVote == null"
+      >
+        {{ isLastQuestion() ? "Finalizar" : "Próxima" }}
+      </button>
+    </div>
+
+    <ng-container *ngIf="quizFinished">
+      <h3>🎉 Quiz finalizado! Parabéns!</h3>
+      <p>Sua pontuação: {{ score }}/{{ totalQuestions }}</p>
+      <p>Seu recorde: {{ bestScore }}/{{ totalQuestions }}</p>
+
+      <app-leaderboard [scores]="topScores"></app-leaderboard>
+
+      <button mat-stroked-button color="accent" (click)="onRestart()">
+        <mat-icon>restart_alt</mat-icon>
+        Reiniciar Quiz
+      </button>
+    </ng-container>
+  </mat-card-content>
+</mat-card>

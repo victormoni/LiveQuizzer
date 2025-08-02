@@ -1,3 +1,4 @@
+// src/app/core/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import {
   Auth,
@@ -14,9 +15,7 @@ export class AuthService {
 
   loginWithGoogle(): Observable<User> {
     return from(
-      signInWithPopup(this.auth, new GoogleAuthProvider()).then(
-        (result) => result.user
-      )
+      signInWithPopup(this.auth, new GoogleAuthProvider()).then((r) => r.user)
     );
   }
 
@@ -24,13 +23,26 @@ export class AuthService {
     return from(signOut(this.auth));
   }
 
-  getCurrentUser(): User | null {
-    return this.auth.currentUser;
+  isLoggedIn(): Observable<boolean> {
+    return new Observable((sub) => {
+      const unsubscribe = this.auth.onAuthStateChanged((user) => {
+        sub.next(!!user);
+      });
+      return { unsubscribe };
+    });
   }
 
-  async getIdToken(): Promise<string | null> {
-    return this.auth.currentUser
-      ? await this.auth.currentUser.getIdToken()
-      : null;
+  getUser(): Observable<User | null> {
+    return new Observable<User | null>((sub) => {
+      const unsubscribe = this.auth.onAuthStateChanged((user) =>
+        sub.next(user)
+      );
+      return { unsubscribe };
+    });
+  }
+
+  /** Retorna o usuário logado (ou null) */
+  getCurrentUser(): User | null {
+    return this.auth.currentUser;
   }
 }

@@ -1,0 +1,36 @@
+.timer {
+  font-size: 1.05rem;
+  color: #e67700;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-card {
+  max-width: 550px;
+  margin: 2rem auto;
+  box-shadow: 0 8px 32px #18a0fb33;
+  border-radius: 18px;
+}
+
+.options-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.voted-feedback {
+  display: block;
+  margin: 0.6rem 0 0.2rem 0;
+  color: #1976d2;
+  font-size: 1.05rem;
+}
+
+.correct {
+  color: #43a047; // verde
+  font-weight: bold;
+}
+.incorrect {
+  color: #e53935; // vermelho
+  font-weight: bold;
+}
+
+
