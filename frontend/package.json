@@ -24,6 +24,7 @@
     "@apollo/client": "^3.13.9",
     "apollo-angular": "^11.0.0",
     "canvas-confetti": "^1.9.3",
+
     "firebase": "^12.0.0",
     "graphql": "^16.11.0",
     "graphql-ws": "^6.0.6",
